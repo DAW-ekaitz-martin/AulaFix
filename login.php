@@ -14,7 +14,7 @@ if(($usuario == "admin" && $contrasenia == "hola123") || !empty($_SESSION["usuar
         <meta charset="UTF-8">
     </head>
     <body> <!-- Guardar el inicio de sesion en una sesion -->
-        <form action="" method="post">
+        <form action="index.php" method="post">
             <label>Nombre de usuario: <input type="text" name="usuario"><label><br>
             <label>Contraseña: <input type="password" name="contrasenia"><label><br><!-- Escribi contraseña sin la ñ por si luego no lo reconoce -->
             <button type="submit">Iniciar sesion</button>
