@@ -1,8 +1,10 @@
 <?php
+session_start();
 require "includes/header.php";
 $usuario = htmlspecialchars($_POST["usuario"] ?? "");
 $contrasenia = htmlspecialchars($_POST["contrasenia"] ?? "");
-if($usuario == "admin" && $contrasenia == "hola123"){
+if(($usuario == "admin" && $contrasenia == "hola123") || !empty($_SESSION["usuario"])){
+    $_SESSION["usuario"] = $usuario;
     header("location: index.php"); // Envia al usuario a la pantalla principal
 }
 ?>
