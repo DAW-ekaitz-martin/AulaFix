@@ -33,7 +33,7 @@ CREATE TABLE incidencias (
     id_usuario_creador INT NOT NULL,
     id_responsable INT NULL,
     id_categoria INT NOT NULL,
-    id_estado INT NOT NULL,
+    id_estado INT NOT NULL DEFAULT 'Abierta',
 
     prioridad ENUM('Baja', 'Media', 'Alta', 'Urgente') DEFAULT 'Media',
 
