@@ -1,6 +1,8 @@
 <?php
     session_start();
-    if()
+    if($_SESSION["id"]) {
+        
+    }
     require 'sql/conexion.php';
 ?>
 <!DOCTYPE html>
