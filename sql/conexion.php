@@ -11,4 +11,3 @@ $cn->set_charset('utf8mb4');
 // En producción, registra el error y muestra un mensaje genérico.
 exit('Error de conexión a la base de datos.');
 }
-?>
