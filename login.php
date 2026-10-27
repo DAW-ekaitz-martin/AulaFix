@@ -4,7 +4,7 @@ require "includes/header.php";
 require 'sql/conexion.php';
 $email = htmlspecialchars($_POST["email"] ?? "");
 $contrasenia = htmlspecialchars($_POST["contrasenia"] ?? "");
-if(!empty($_SESSION["id"])){ 
+if(!empty($_SESSION["id_usuario"])){ 
     header("location: index.php");
 }else if(!empty($email) && !empty($contrasenia)){
     $stmt = $cn -> prepare("SELECT id_usuario, email, password FROM usuarios WHERE email LIKE ?");
@@ -16,7 +16,17 @@ if(!empty($_SESSION["id"])){
         if($inf["email"] == $email && $inf["password"] == $contrasenia){
             header("location: index.php");
             $_SESSION["id_usuario"] = $inf["id_usuario"];
+        }else{
+            ?>
+            <h2>Inicio de sesion invalido</h2>
+            <p>Revise los campos y pruebe otra vez</p>
+            <?php
         }
+    }else{
+        ?>
+        <h2>Inicio de sesion invalido</h2>
+        <p>Revise los campos y pruebe otra vez</p>
+        <?php
     }
 }
 ?>
