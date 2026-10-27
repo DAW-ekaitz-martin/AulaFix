@@ -14,17 +14,17 @@
 </head>
 <body>
 <h2>Filtrar por</h2>
-<!-- Consultar todo-->
+<!-- Consultar id-->
     <form action="index.php" method="post">
         <input type="number" min="1" name="id">
         <button>Id</button>
     </form>
-<!-- Consultar todo-->
+<!-- Consultar estado-->
     <form action="index.php" method="post">
         <input type="text" name="estado">
         <button>Estado</button>
     </form>
-<!-- Consultar todo-->
+<!-- Consultar prioridad-->
     <form action="index.php" method="post">
         <input type="text" name="prioridad">
         <button>Prioridad</button>
@@ -106,5 +106,6 @@
             }
     
     ?>
+                <a href="nueva.php">Crear una nueva incidencia</a>
 </body>
 </html>
