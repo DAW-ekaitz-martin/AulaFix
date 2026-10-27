@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!$_SESSION["id_usuario"]) {
+    header("Location:login.php");
+}
 require 'sql/conexion.php';
 
 $mensaje = '';

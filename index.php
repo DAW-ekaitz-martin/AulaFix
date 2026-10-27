@@ -85,7 +85,6 @@
                     <td><?= htmlspecialchars($r["prioridad"], ENT_QUOTES,"UTF-8") ?></td>
                     <td>
                         <a href="editar.php">Editar</a>
-                        <a href="eliminar.php">Eminiar</a>
                     </td>
                 </tr>
     <?php
@@ -106,6 +105,8 @@
             }
     
     ?>
-                <a href="nueva.php">Crear una nueva incidencia</a>
+                <a href="nueva.php">Crear una nueva incidencia</a> <br>
+                <a href="eliminar.php">Eliminar</a> <br>
+                <a href="logout.php">Cerar Sesión</a>
 </body>
 </html>

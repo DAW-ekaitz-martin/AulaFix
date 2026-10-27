@@ -1,4 +1,8 @@
 <?php
+session_start();
+if(!$_SESSION["id_usuario"]) {
+    header("Location:login.php");
+}
 require 'sql/conexion.php';
 
 $incidencia = null;
@@ -109,7 +113,6 @@ if (isset($_POST["actualizar"])) {
     </select>
 
     <br><br>
-
     <label>Nuevo valor:</label>
     <input type="text" name="valor" required>
 
