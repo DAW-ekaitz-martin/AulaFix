@@ -4,7 +4,9 @@ require "includes/header.php";
 require 'sql/conexion.php';
 $email = htmlspecialchars($_POST["email"] ?? "");
 $contrasenia = htmlspecialchars($_POST["contrasenia"] ?? "");
-if(!empty($email) && !empty($contrasenia)){
+if(!empty($_SESSION["id"])){ 
+    header("location: index.php");
+}else if(!empty($email) && !empty($contrasenia)){
     $stmt = $cn -> prepare("SELECT id_usuario, email, password FROM usuarios WHERE email LIKE ?");
     $stmt -> bind_param("s", $email);
     $stmt -> execute();
@@ -12,13 +14,10 @@ if(!empty($email) && !empty($contrasenia)){
     if($res -> num_rows > 0){
         $inf = $res -> fetch_assoc();
         if($inf["email"] == $email && $inf["password"] == $contrasenia){
-            header("location: index.php"); // Envia al usuario a la pantalla principal
+            header("location: index.php");
             $_SESSION["id_usuario"] = $inf["id_usuario"];
         }
     }
-}
-if(!empty($_SESSION["id"])){ // Pongo la verificacion de id abajo para no repetir codigo (despues de añadir el id en sesion que la compruebe para iniciar sesion)
-    header("location: index.php"); // Envia al usuario a la pantalla principal
 }
 ?>
 <!DOCTYPE html>
