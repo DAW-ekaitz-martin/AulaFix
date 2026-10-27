@@ -18,10 +18,10 @@
         <input type="text" name="descripcion" id="descripcion"><br><br>
 
         <label for="id_responsable">Responsable:</label>
-        <input type="number" name="id_responsable" id="id_responsable" min="0"><br><br>
+        <input type="number" name="id_responsable" id="id_responsable"><br><br>
 
         <label for="id_categoria">Categoría:</label>
-        <input type="number" name="id_categoria" id="id_categoria" min="0"><br><br>
+        <input type="number" name="id_categoria" id="id_categoria"><br><br>
 
         <label for="prioridad">Prioridad:</label>
         <input type="text" name="prioridad" id="prioridad"><br><br>
