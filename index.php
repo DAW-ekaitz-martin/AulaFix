@@ -1,7 +1,7 @@
 <?php
     session_start();
-    if($_SESSION["id"]) {
-        
+    if(!$_SESSION["id_usuario"]) {
+        header("Location:login.php");
     }
     require 'sql/conexion.php';
 ?>
@@ -58,7 +58,7 @@
     ?>
     <?php if($res){?>
                 <table border="1" cellpadding="6">
-                    <tr><th>ID</th> <th>Titulo</th> <th>Descripción</th> <th>Fecha Creación</th> <th>Fecha de cierre</th> <th>Id creador</th> <th>Id responsable</th> <th>Id categoría</th> <th>Estado</th> <th>Prioridad</th></tr>
+                    <tr><th>ID</th> <th>Titulo</th> <th>Descripción</th> <th>Fecha Creación</th> <th>Fecha de cierre</th> <th>Id creador</th> <th>Id responsable</th> <th>Id categoría</th> <th>Estado</th> <th>Prioridad</th> <th>Acciones</th></tr>
     <?php 
                 while($r= $res->fetch_assoc()){
     ?>
@@ -83,6 +83,10 @@
                     <td><?= htmlspecialchars($r["id_categoria"], ENT_QUOTES,"UTF-8") ?></td>
                     <td><?= htmlspecialchars($r["estado"], ENT_QUOTES,"UTF-8") ?></td>
                     <td><?= htmlspecialchars($r["prioridad"], ENT_QUOTES,"UTF-8") ?></td>
+                    <td>
+                        <a href="editar.php">Editar</a>
+                        <a href="eliminar.php">Eminiar</a>
+                    </td>
                 </tr>
     <?php
                 }
