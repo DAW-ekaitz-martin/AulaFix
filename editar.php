@@ -45,6 +45,8 @@ if (isset($_POST["actualizar"])) {
 
         if ($stmt->execute()) {
             $mensaje = "Incidencia actualizada correctamente.";
+            
+           
         } else {
             $mensaje = "Error al actualizar.";
         }
@@ -71,7 +73,7 @@ if (isset($_POST["actualizar"])) {
 </form>
 
 <p><?php echo $mensaje; ?></p>
-
+<a href="index.php">Volver</a>
 <?php if ($incidencia) { ?>
 
 <hr>
@@ -81,8 +83,8 @@ if (isset($_POST["actualizar"])) {
 <p><strong>ID:</strong> <?php echo $incidencia["id_incidencia"]; ?></p>
 <p><strong>Título:</strong> <?php echo $incidencia["titulo"]; ?></p>
 <p><strong>Descripción:</strong> <?php echo $incidencia["descripcion"]; ?></p>
-<p><strong>Categoría:</strong> <?php echo $incidencia["id_categoria"]; ?></p>
-<p><strong>Estado:</strong> <?php echo $incidencia["id_estado"]; ?></p>
+<p><strong>Id Categoría:</strong> <?php echo $incidencia["id_categoria"]; ?></p>
+<p><strong>Id Estado:</strong> <?php echo $incidencia["id_estado"]; ?></p>
 <p><strong>Prioridad:</strong> <?php echo $incidencia["prioridad"]; ?></p>
 
 <hr>
@@ -101,8 +103,8 @@ if (isset($_POST["actualizar"])) {
     <select name="campo">
         <option value="titulo">Título</option>
         <option value="descripcion">Descripción</option>
-        <option value="id_categoria">Categoría</option>
-        <option value="id_estado">Estado</option>
+        <option value="id_categoria">Id Categoría</option>
+        <option value="id_estado">Id Estado</option>
         <option value="prioridad">Prioridad</option>
     </select>
 
