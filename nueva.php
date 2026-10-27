@@ -14,7 +14,7 @@
 </head>
 <body>
     <h1>Crear incidencia</h1>
-    <form action="crearIncidencia.php" method="post">
+    <form action="nueva.php" method="post">
         <label for="titulo">Título:</label>
         <input type="text" name="titulo" id="titulo"><br><br>
 
@@ -45,6 +45,7 @@
     ?>
 
                     <p>Incidencia añadida con éxito</p>
+                    <a href="index.php">Volver</a>
     <?php
                 }
     ?>
