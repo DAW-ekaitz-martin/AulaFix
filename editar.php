@@ -8,6 +8,7 @@ $mensaje = "";
 if (isset($_POST["buscar"])) {
 
     $id = $_POST["id_incidencia"];
+
     $stmt = $cn->prepare("SELECT * FROM incidencias WHERE id_incidencia = ?");
     $stmt->bind_param("i", $id);
     $stmt->execute();
@@ -71,33 +72,18 @@ if (isset($_POST["actualizar"])) {
 
 <p><?php echo $mensaje; ?></p>
 
-<?php if($incidencia){ ?>
+<?php if ($incidencia) { ?>
 
 <hr>
 
 <h3>Datos actuales</h3>
 
 <p><strong>ID:</strong> <?php echo $incidencia["id_incidencia"]; ?></p>
-
-<p><strong>Título:</strong>
-<?php echo $incidencia["titulo"]; ?>
-</p>
-
-<p><strong>Descripción:</strong>
-<?php echo $incidencia["descripcion"]; ?>
-</p>
-
-<p><strong>Categoría:</strong>
-<?php echo $incidencia["id_categoria"]; ?>
-</p>
-
-<p><strong>Estado:</strong>
-<?php echo $incidencia["id_estado"]; ?>
-</p>
-
-<p><strong>Prioridad:</strong>
-<?php echo $incidencia["prioridad"]; ?>
-</p>
+<p><strong>Título:</strong> <?php echo $incidencia["titulo"]; ?></p>
+<p><strong>Descripción:</strong> <?php echo $incidencia["descripcion"]; ?></p>
+<p><strong>Categoría:</strong> <?php echo $incidencia["id_categoria"]; ?></p>
+<p><strong>Estado:</strong> <?php echo $incidencia["id_estado"]; ?></p>
+<p><strong>Prioridad:</strong> <?php echo $incidencia["prioridad"]; ?></p>
 
 <hr>
 
@@ -105,9 +91,10 @@ if (isset($_POST["actualizar"])) {
 
 <form method="POST">
 
-    <input type="hidden"
-           name="id_incidencia"
-           value="<?php echo $incidencia['id_incidencia']; ?>">
+    <input
+        type="hidden"
+        name="id_incidencia"
+        value="<?php echo $incidencia['id_incidencia']; ?>">
 
     <label>Campo a modificar:</label>
 
