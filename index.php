@@ -16,19 +16,22 @@
 <h2>Filtrar por</h2>
 <!-- Consultar id-->
     <form action="index.php" method="post">
-        <input type="number" min="1" name="id">
-        <button>Id</button>
+        <label for="id">ID:</label><br>
+        <input type="number" min="1" id="id" name="id">
+        <button>Filtrar</button>
     </form>
 <!-- Consultar estado-->
     <form action="index.php" method="post">
-        <input type="text" name="estado">
-        <button>Estado</button>
+        <label for="estado">Estado:</label><br>
+        <input type="text" name="estado" id="estado">
+        <button>Filtrar</button>
     </form>
 <!-- Consultar prioridad-->
     <form action="index.php" method="post">
-        <input type="text" name="prioridad">
-        <button>Prioridad</button>
-    </form>
+        <label for="prioridad">Prioridad</label><br>
+        <input type="text" name="prioridad" id="prioridad">
+        <button>Filtrar</button>
+    </form><br>
     <?php
         $filtrado = false;
         $stmt = $cn->prepare("SELECT * FROM incidencias;");
@@ -56,7 +59,7 @@
             $filtrado = true;
         }
     ?>
-    <?php if($res){?>
+    <?php   if($res->num_rows > 0){?>
                 <table border="1" cellpadding="6">
                     <tr><th>ID</th> <th>Titulo</th> <th>Descripción</th> <th>Fecha Creación</th> <th>Fecha de cierre</th> <th>Id creador</th> <th>Id responsable</th> <th>Id categoría</th> <th>Estado</th> <th>Prioridad</th> <th>Acciones</th></tr>
     <?php 
@@ -90,11 +93,22 @@
     <?php
                 }
     
-            } if($filtrado) {
+            } if($res->num_rows == 0 && !$filtrado) { // La db está vacía, porque no aparecen datos y no hay filtros aplicados
+    ?>
+                <p>Todavía no hay incidencias.</p>
+                <p>Añade una para verla</p>
+    <?php
+            }
+            if($filtrado && $res->num_rows == 0) {
+    ?>
+                <p>No hay ninguna incidencia que cumpla con los filtros</p>
+    <?php
+            }
+            if($filtrado) {
     ?>
                 <form action="index.php" method="get">
                     <input type="hidden" name="todo">
-                    <button type="submit">Mostrar todo</button> 
+                    <button type="submit">Mostrar todo</button><br>
                 </form>
     <?php
             }
