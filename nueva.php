@@ -45,7 +45,6 @@
     ?>
 
                     <p>Incidencia añadida con éxito</p>
-                    <a href="index.php">Volver</a>
     <?php
                 }
     ?>
@@ -53,11 +52,12 @@
             }
         } catch (Exception $e) {
     ?>
-            <p>Inserción cancelada, revise los campos y pruebe otra vez</p>
+            <p>Inserción cancelada, revise los campos y pruebe otra vez</p><br>
+            <a href="index.php">Volver</a>
     <?php
             echo $e;
         }
     ?>
-    
+    <a href="index.php">Volver</a>
 </body>
 </html>
