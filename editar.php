@@ -1,8 +1,4 @@
 <?php
-session_start();
-if(!$_SESSION["id_usuario"]) {
-    header("Location:login.php");
-}
 require 'sql/conexion.php';
 
 $incidencia = null;
@@ -33,7 +29,7 @@ if (isset($_POST["actualizar"])) {
     $titulo = $_POST["titulo"];
     $descripcion = $_POST["descripcion"];
     $id_categoria = $_POST["id_categoria"];
-    $id_estado = $_POST["id_estado"];
+    $estado = $_POST["estado"];
     $prioridad = $_POST["prioridad"];
 
     $stmt = $cn->prepare("
@@ -41,17 +37,17 @@ if (isset($_POST["actualizar"])) {
         SET titulo = ?,
             descripcion = ?,
             id_categoria = ?,
-            id_estado = ?,
+            estado = ?,
             prioridad = ?
         WHERE id_incidencia = ?
     ");
 
     $stmt->bind_param(
-        "ssiisi",
+        "ssissi",
         $titulo,
         $descripcion,
         $id_categoria,
-        $id_estado,
+        $estado,
         $prioridad,
         $id
     );
@@ -143,10 +139,9 @@ if (isset($_POST["actualizar"])) {
         <p>
             <label>ID Estado:</label><br>
             <input
-                type="number"
-                name="id_estado"
-                value="<?php echo $incidencia['id_estado']; ?>"
-                min="1" max="4"
+                type="text"
+                name="estado"
+                value="<?php echo $incidencia['estado']; ?>"
                 required>
         </p>
 

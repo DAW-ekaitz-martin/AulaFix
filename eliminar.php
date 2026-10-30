@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <h2>Eliminar incidencia</h2>
 
-<form method="post">
+<form method="post" onsubmit="return confirm('¿Estás seguro que quieres eliminar la incidencia?')">
 
     <label>ID de la incidencia:</label><br>
     <input type="number" name="id_incidencia" required>
