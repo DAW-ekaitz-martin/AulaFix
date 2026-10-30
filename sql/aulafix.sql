@@ -6,17 +6,13 @@ CREATE TABLE usuarios (
     apellidos VARCHAR(150),
     email VARCHAR(150) UNIQUE NOT NULL,
     password VARCHAR(255) NOT NULL,
-    rol ENUM('administrador', 'bibliotecario', 'usuario') NOT NULL,
+    rol ENUM('bibliotecario', 'usuario', 'administrador') DEFAULT 'usuario',
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 CREATE TABLE categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT
-);
-CREATE TABLE estados (
-    id_estado INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(50) NOT NULL
 );
 CREATE TABLE incidencias (
     id_incidencia INT AUTO_INCREMENT PRIMARY KEY,

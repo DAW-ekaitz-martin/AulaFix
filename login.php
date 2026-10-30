@@ -41,6 +41,7 @@ if(!empty($_SESSION["id_usuario"])){
             <label>Contraseña: <input type="password" name="contrasenia"><label><br><!-- Escribi contraseña sin la ñ por si luego no lo reconoce -->
             <button type="submit">Iniciar sesion</button>
         </form>
+        <a href="registrarse.php">Registrarme</a>
     </body>
 </html>
 <?php
