@@ -121,6 +121,6 @@
     ?>
                 <a href="nueva.php">Crear una nueva incidencia</a> <br>
                 <a href="eliminar.php">Eliminar</a> <br>
-                <a href="logout.php">Cerar Sesión</a>
+                <a href="logout.php">Cerrar Sesión</a>
 </body>
 </html>
