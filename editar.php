@@ -26,34 +26,53 @@ if (isset($_POST["buscar"])) {
     }
 }
 
-// Actualizar incidencia
+// Actualizar incidencia completa
 if (isset($_POST["actualizar"])) {
 
     $id = $_POST["id_incidencia"];
-    $campo = $_POST["campo"];
-    $valor = $_POST["valor"];
+    $titulo = $_POST["titulo"];
+    $descripcion = $_POST["descripcion"];
+    $id_categoria = $_POST["id_categoria"];
+    $id_estado = $_POST["id_estado"];
+    $prioridad = $_POST["prioridad"];
 
-    $camposPermitidos = [
-        "titulo",
-        "descripcion",
-        "id_categoria",
-        "id_estado",
-        "prioridad"
-    ];
+    $stmt = $cn->prepare("
+        UPDATE incidencias
+        SET titulo = ?,
+            descripcion = ?,
+            id_categoria = ?,
+            id_estado = ?,
+            prioridad = ?
+        WHERE id_incidencia = ?
+    ");
 
-    if (in_array($campo, $camposPermitidos)) {
+    $stmt->bind_param(
+        "ssiisi",
+        $titulo,
+        $descripcion,
+        $id_categoria,
+        $id_estado,
+        $prioridad,
+        $id
+    );
 
-        $sql = "UPDATE incidencias SET $campo = ? WHERE id_incidencia = ?";
-        $stmt = $cn->prepare($sql);
-        $stmt->bind_param("si", $valor, $id);
+    if ($stmt->execute()) {
 
-        if ($stmt->execute()) {
-            $mensaje = "Incidencia actualizada correctamente.";
-            
-           
-        } else {
-            $mensaje = "Error al actualizar.";
+        $mensaje = "Incidencia actualizada correctamente.";
+
+        // Volver a cargar los datos actualizados
+        $stmt2 = $cn->prepare("SELECT * FROM incidencias WHERE id_incidencia = ?");
+        $stmt2->bind_param("i", $id);
+        $stmt2->execute();
+
+        $resultado = $stmt2->get_result();
+
+        if ($resultado->num_rows > 0) {
+            $incidencia = $resultado->fetch_assoc();
         }
+
+    } else {
+        $mensaje = "Error al actualizar la incidencia.";
     }
 }
 ?>
@@ -77,52 +96,85 @@ if (isset($_POST["actualizar"])) {
 </form>
 
 <p><?php echo $mensaje; ?></p>
+
 <a href="index.php">Volver</a>
+
 <?php if ($incidencia) { ?>
 
-<hr>
+    <hr>
 
-<h3>Datos actuales</h3>
+    <h3>Editar incidencia</h3>
 
-<p><strong>ID:</strong> <?php echo $incidencia["id_incidencia"]; ?></p>
-<p><strong>Título:</strong> <?php echo $incidencia["titulo"]; ?></p>
-<p><strong>Descripción:</strong> <?php echo $incidencia["descripcion"]; ?></p>
-<p><strong>Id Categoría:</strong> <?php echo $incidencia["id_categoria"]; ?></p>
-<p><strong>Id Estado:</strong> <?php echo $incidencia["id_estado"]; ?></p>
-<p><strong>Prioridad:</strong> <?php echo $incidencia["prioridad"]; ?></p>
+    <form method="POST">
 
-<hr>
+        <input
+            type="hidden"
+            name="id_incidencia"
+            value="<?php echo $incidencia['id_incidencia']; ?>">
 
-<h3>Modificar dato</h3>
+        <p>
+            <label>Título:</label><br>
+            <input
+                type="text"
+                name="titulo"
+                value="<?php echo htmlspecialchars($incidencia['titulo']); ?>"
+                required>
+        </p>
 
-<form method="POST">
+        <p>
+            <label>Descripción:</label><br>
+            <textarea
+                name="descripcion"
+                rows="4"
+                cols="50"
+                required><?php echo htmlspecialchars($incidencia['descripcion']); ?></textarea>
+        </p>
 
-    <input
-        type="hidden"
-        name="id_incidencia"
-        value="<?php echo $incidencia['id_incidencia']; ?>">
+        <p>
+            <label>ID Categoría:</label><br>
+            <input
+                type="number"
+                name="id_categoria"
+                value="<?php echo $incidencia['id_categoria']; ?>"
+                min="1" max="25"
+                required>
+        </p>
 
-    <label>Campo a modificar:</label>
+        <p>
+            <label>ID Estado:</label><br>
+            <input
+                type="number"
+                name="id_estado"
+                value="<?php echo $incidencia['id_estado']; ?>"
+                min="1" max="4"
+                required>
+        </p>
 
-    <select name="campo">
-        <option value="titulo">Título</option>
-        <option value="descripcion">Descripción</option>
-        <option value="id_categoria">Id Categoría</option>
-        <option value="id_estado">Id Estado</option>
-        <option value="prioridad">Prioridad</option>
-    </select>
+        <p>
+            <label>Prioridad:</label><br>
+            <select name="prioridad">
+                <option value="Baja"
+                    <?php if($incidencia['prioridad']=="Baja") echo "selected"; ?>>
+                    Baja
+                </option>
 
-    <br><br>
-    <label>Nuevo valor:</label>
-    <input type="text" name="valor" required>
+                <option value="Media"
+                    <?php if($incidencia['prioridad']=="Media") echo "selected"; ?>>
+                    Media
+                </option>
 
-    <br><br>
+                <option value="Alta"
+                    <?php if($incidencia['prioridad']=="Alta") echo "selected"; ?>>
+                    Alta
+                </option>
+            </select>
+        </p>
 
-    <button type="submit" name="actualizar">
-        Actualizar
-    </button>
+        <button type="submit" name="actualizar">
+            Guardar cambios
+        </button>
 
-</form>
+    </form>
 
 <?php } ?>
 
