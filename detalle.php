@@ -4,7 +4,7 @@ require "includes/header.php";
 require 'sql/conexion.php';
 require_once "funciones.php";
 $stmt1 = $cn -> prepare("SELECT id_incidencia, titulo, descripcion, fecha_creacion, fecha_cierre, id_usuario_creador, id_responsable, id_categoria, estado, prioridad FROM incidencias WHERE id_incidencia = ?");
-$stmt1 -> bind_param("i", $_GET["id_incidencia"]);
+$stmt1 -> bind_param("i", $_POST["id_incidencia"]);
 $stmt1 -> execute();
 $res = $stmt1 -> get_result();
 $inf = $res -> fetch_assoc();
@@ -49,6 +49,8 @@ $stmt5 -> close();
         <p>Categoria: <?= $categoria["nombre"]?></p>
         <p>Estado: <?= $inf["estado"]?></p>
         <p>Prioridad: <?= $inf["prioridad"]?></p>
+
+        <a href="index.php">Volver</a>
     <hr>
     <h2>Historial de la incidencia</h2>
     <?php if($res -> num_rows > 0){?>

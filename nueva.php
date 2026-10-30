@@ -38,8 +38,8 @@
             if(isset($_POST["titulo"]) && isset($_POST["descripcion"]) &&
             isset($_POST["id_responsable"]) && isset($_POST["id_categoria"]) && 
             isset($_POST["prioridad"])) {
-                $stmt = $cn ->prepare("INSERT INTO incidencias (titulo,descripcion,id_responsable,id_categoria,prioridad) VALUES (?,?,?,?,?);");
-                $stmt->bind_param('ssiis', $_POST["titulo"], $_POST["descripcion"], $_POST["id_responsable"], $_POST["id_categoria"], $_POST["prioridad"]);
+                $stmt = $cn ->prepare("INSERT INTO incidencias (titulo,descripcion,id_usuario_creador,id_responsable,id_categoria,prioridad) VALUES (?,?,?,?,?,?);");
+                $stmt->bind_param('ssiiis', $_POST["titulo"], $_POST["descripcion"],$_SESSION["id_usuario"], $_POST["id_responsable"], $_POST["id_categoria"], $_POST["prioridad"]);
                 $resultado = $stmt->execute();
                 if($resultado && $stmt->affected_rows > 0 ) {
     ?>
@@ -51,10 +51,11 @@
     ?>
     <?php
             }
-        } catch (Exception) {
+        } catch (Exception $e) {
     ?>
             <p>Inserción cancelada, revise los campos y pruebe otra vez</p>
     <?php
+            echo $e;
         }
     ?>
     

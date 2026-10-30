@@ -87,6 +87,10 @@
                     <td><?= htmlspecialchars($r["estado"], ENT_QUOTES,"UTF-8") ?></td>
                     <td><?= htmlspecialchars($r["prioridad"], ENT_QUOTES,"UTF-8") ?></td>
                     <td>
+                        <form action="detalle.php" method="post">
+                            <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                            <button type="submit">Detalle</button>
+                        </form>
                         <a href="editar.php">Editar</a>
                     </td>
                 </tr>

@@ -21,7 +21,7 @@ CREATE TABLE incidencias (
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_cierre DATETIME NULL,
 
-    id_usuario_creador INT NOT NULL DEFAULT 2,
+    id_usuario_creador INT NOT NULL,
     id_responsable INT NULL,
     id_categoria INT NOT NULL,
     estado ENUM('Abierta', 'En proceso', 'Resuelta', 'Cerrada') DEFAULT "Abierta",
