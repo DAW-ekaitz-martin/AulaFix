@@ -6,7 +6,6 @@ $incidencia = null;
 $mensaje = "";
 
 // Buscar incidencia
-if (isset($_POST["buscar"])) {
 
     $id = $_POST["id_incidencia"];
 
@@ -21,7 +20,6 @@ if (isset($_POST["buscar"])) {
     } else {
         $mensaje = "No existe ninguna incidencia con ese ID.";
     }
-}
 
 // Actualizar estado y registrar historial
 if (isset($_POST["actualizar"])) {
@@ -123,17 +121,6 @@ if ($incidencia) {
 <body>
 
 <h1>Cambiar estado de incidencia</h1>
-
-<form method="POST">
-
-    <label>ID de incidencia:</label>
-    <input type="number" name="id_incidencia" required>
-
-    <button type="submit" name="buscar">
-        Buscar
-    </button>
-
-</form>
 
 <p><?php echo $mensaje; ?></p>
 
