@@ -33,12 +33,7 @@
                     <a href="nueva.php" class="nav-link">
                         <i class="bi bi-plus-circle me-1"></i>Nueva incidencia
                     </a>
-                </li>
-                <li class="nav-item">
-                    <a href="eliminar.php" class="nav-link">
-                        <i class="bi bi-trash me-1"></i>Eliminar
-                    </a>
-                </li>
+                </li>  
                 <li class="nav-item ms-lg-2">
                     <a href="logout.php" class="nav-link" style="background:rgba(230,57,70,.18);border-radius:6px;">
                         <i class="bi bi-box-arrow-right me-1"></i>Cerrar sesión
@@ -173,16 +168,36 @@
                     <td><span class="af-badge af-badge-<?= strtolower(str_replace(' ', '-', htmlspecialchars($r["estado"], ENT_QUOTES,"UTF-8"))) ?>"><?= htmlspecialchars($r["estado"], ENT_QUOTES,"UTF-8") ?></span></td>
                     <td><span class="af-badge af-badge-<?= strtolower(htmlspecialchars($r["prioridad"], ENT_QUOTES,"UTF-8")) ?>"><?= htmlspecialchars($r["prioridad"], ENT_QUOTES,"UTF-8") ?></span></td>
                     <td>
-                        <div class="d-flex gap-1 flex-nowrap">
-                        <form action="detalle.php" method="post" class="d-inline">
-                            <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
-                            <button type="submit" class="btn btn-af-secondary btn-af-xs">
-                                <i class="bi bi-eye me-1"></i>Detalle
-                            </button>
-                        </form>
-                        <a href="editar.php" class="btn btn-af-outline btn-af-xs">
-                            <i class="bi bi-pencil me-1"></i>Editar
-                        </a>
+                        <div class="d-flex gap-1 flex-nowrap ">
+                            <div class="cont1">
+                                <form action="detalle.php" method="post" class="d-inline">
+                                    <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                                    <button type="submit" class="btn btn-af-secondary btn-af-xs">
+                                        <i class="bi bi-eye me-1"></i>Detalle
+                                    </button>
+                                </form>
+                                <form action="editar.php" method="post" class="d-inline">
+                                    <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                                    <button type="submit" class="btn btn-af-secondary btn-af-xs">
+                                        <i class="bi bi-pencil me-1"></i>Editar
+                                    </button>
+                                </form>
+                            </div>
+                            <div class="cont1">
+                                <form action="estado.php" method="post" class="d-inline">
+                                    <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                                    <button type="submit" class="btn btn-af-primary btn-af-xs">
+                                        <i class="bi bi-pencil me-1"></i>Cambiar estado
+                                    </button>
+                                </form>
+                                <form action="eliminar.php" method="post" class="d-inline">
+                                    <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                                    <button type="submit" class="btn btn-af-danger btn-af-xs">
+                                        <i class="bi bi-trash me-1"></i>Eliminar
+                                    </button>
+                                </form>
+                            </div>
+                            
                         </div>
                     </td>
                 </tr>

@@ -5,7 +5,6 @@ $incidencia = null;
 $mensaje = "";
 
 // Buscar incidencia
-if (isset($_POST["buscar"])) {
 
     $id = $_POST["id_incidencia"];
 
@@ -20,7 +19,6 @@ if (isset($_POST["buscar"])) {
     } else {
         $mensaje = "No existe ninguna incidencia con ese ID.";
     }
-}
 
 // Actualizar incidencia completa
 if (isset($_POST["actualizar"])) {
@@ -117,7 +115,7 @@ if (isset($_POST["actualizar"])) {
 
     <!-- SEARCH CARD -->
     <div class="af-card">
-        <div class="af-card-header">
+        <!--<div class="af-card-header">
             <i class="bi bi-search"></i> Buscar incidencia
         </div>
         <div class="af-card-body">
@@ -129,7 +127,7 @@ if (isset($_POST["actualizar"])) {
                 <button type="submit" name="buscar" class="btn btn-af-secondary" style="height:38px;">
                     <i class="bi bi-search me-1"></i>Buscar
                 </button>
-            </form>
+            </form>-->
 
             <?php if ($mensaje && $mensaje !== "ok"): ?>
             <div class="af-alert af-alert-error mt-3">

@@ -310,6 +310,11 @@ body {
 .af-table tbody tr:last-child td {
   border-bottom: none;
 }
+.cont1 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 
 /* ═══════════════════════════════════════
    BADGES

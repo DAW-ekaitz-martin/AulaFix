@@ -7,11 +7,10 @@ require 'sql/conexion.php';
 
 $mensaje = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $id = (int)($_POST['id_incidencia'] ?? 0);
 
-    if ($id > 0) {
+    if ($id > 0 && isset($_POST["eliminar"])) {
 
         $stmt = $cn->prepare(
             'DELETE FROM incidencias WHERE id_incidencia = ?'
@@ -28,10 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->close();
 
-    } else {
-        $mensaje = "Introduce un ID válido.";
     }
-}
 ?>
 
 <!DOCTYPE html>
@@ -94,24 +90,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- DELETE CARD -->
     <div class="af-card">
         <div class="af-card-header" style="background:#991b1b;">
-            <i class="bi bi-exclamation-triangle"></i> Confirmar eliminación
+            <i class="bi bi-exclamation-triangle"></i>Confirmación de eliminación de la incidencia #<?=$id?>
         </div>
         <div class="af-card-body">
 
             <div class="af-alert af-alert-warning mb-3">
                 <i class="bi bi-exclamation-triangle-fill"></i>
-                <span>Introduce el ID de la incidencia que deseas eliminar permanentemente.</span>
+                <span>Estas seguro de que deseas eliminar la incidencia permanentemente.</span>
             </div>
 
-            <form method="post" onsubmit="return confirm('¿Estás seguro que quieres eliminar la incidencia?')">
-
-                <div class="mb-4">
-                    <label class="form-label">ID de la incidencia</label>
-                    <input type="number" name="id_incidencia" class="form-control" placeholder="Nº de incidencia" required>
-                </div>
-
-                <input type="submit" value="Eliminar incidencia" class="btn btn-af-danger w-100 py-2">
-
+            <form method="post">
+                <input type="hidden" name="id_incidencia" value="<?= $id ?>">
+                <input type="text" name="eliminar" hidden>
+                <button type="submit" class="btn btn-af-danger w-100 py-2">Eliminar incidencia</button>
             </form>
 
         </div>
