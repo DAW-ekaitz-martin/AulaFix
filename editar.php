@@ -142,7 +142,7 @@ if (isset($_POST["actualizar"])) {
                 type="text"
                 name="estado"
                 value="<?php echo $incidencia['estado']; ?>"
-                required>
+                disabled>
         </p>
 
         <p>
