@@ -176,28 +176,32 @@
                                         <i class="bi bi-eye me-1"></i>Detalle
                                     </button>
                                 </form>
-                                <form action="editar.php" method="post" class="d-inline">
-                                    <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
-                                    <button type="submit" class="btn btn-af-secondary btn-af-xs">
-                                        <i class="bi bi-pencil me-1"></i>Editar
-                                    </button>
-                                </form>
-                            </div>
-                            <div class="cont1">
-                                <form action="estado.php" method="post" class="d-inline">
-                                    <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
-                                    <button type="submit" class="btn btn-af-primary btn-af-xs">
-                                        <i class="bi bi-pencil me-1"></i>Cambiar estado
-                                    </button>
-                                </form>
-                                <form action="eliminar.php" method="post" class="d-inline">
-                                    <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
-                                    <button type="submit" class="btn btn-af-danger btn-af-xs">
-                                        <i class="bi bi-trash me-1"></i>Eliminar
-                                    </button>
-                                </form>
-                            </div>
-                            
+    <?php
+                                if($_SESSION["id_usuario"] >=1 && $_SESSION["id_usuario"] <= 3) {
+    ?>
+                                        <form action="editar.php" method="post" class="d-inline">
+                                            <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                                            <button type="submit" class="btn btn-af-secondary btn-af-xs">
+                                                <i class="bi bi-pencil me-1"></i>Editar
+                                            </button>
+                                        </form>
+                                    </div>
+                                    <div class="cont1">
+                                        <form action="estado.php" method="post" class="d-inline">
+                                            <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                                            <button type="submit" class="btn btn-af-primary btn-af-xs">
+                                                <i class="bi bi-pencil me-1"></i>Cambiar estado
+                                            </button>
+                                        </form>
+                                        <form action="eliminar.php" method="post" class="d-inline">
+                                            <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                                            <button type="submit" class="btn btn-af-danger btn-af-xs">
+                                                <i class="bi bi-trash me-1"></i>Eliminar
+                                            </button>
+                                        </form>
+                                    </div>
+    <?php                       }
+    ?>
                         </div>
                     </td>
                 </tr>
