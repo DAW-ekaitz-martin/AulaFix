@@ -316,6 +316,14 @@ body {
   gap: 4px;
 }
 
+.af-action-col {
+  min-width: 85px;
+}
+
+.af-action-col form {
+  display: block;
+}
+
 /* ═══════════════════════════════════════
    BADGES
 ═══════════════════════════════════════ */

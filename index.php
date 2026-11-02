@@ -1,4 +1,7 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     session_start();
     if(!$_SESSION["id_usuario"]) {
         header("Location:login.php");
@@ -124,89 +127,98 @@
 
     <!-- TABLE -->
     <?php if($res->num_rows > 0){ ?>
-    <div class="af-table-wrapper">
-        <div class="table-responsive">
-        <table class="table af-table mb-0">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Título</th>
-                    <th>Descripción</th>
-                    <th>Fecha creación</th>
-                    <th>Fecha cierre</th>
-                    <th>Creador</th>
-                    <th>Responsable</th>
-                    <th>Categoría</th>
-                    <th>Estado</th>
-                    <th>Prioridad</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
+            <div class="af-table-wrapper">
+                <div class="table-responsive">
+                    <table class="table af-table mb-0">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Título</th>
+                                <th>Descripción</th>
+                                <th>Fecha creación</th>
+                                <th>Fecha cierre</th>
+                                <th>Creador</th>
+                                <th>Responsable</th>
+                                <th>Categoría</th>
+                                <th>Estado</th>
+                                <th>Prioridad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
     <?php
-                while($r= $res->fetch_assoc()){
+                        while($r= $res->fetch_assoc()){
     ?>
-                <tr>
-                    <td class="fw-semibold text-secondary">#<?= htmlspecialchars($r["id_incidencia"], ENT_QUOTES,"UTF-8") ?></td>
-                    <td class="fw-semibold"><?= htmlspecialchars($r["titulo"], ENT_QUOTES,"UTF-8") ?></td>
-                    <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><?= htmlspecialchars($r["descripcion"], ENT_QUOTES,"UTF-8") ?></td>
-                    <td><?= htmlspecialchars($r["fecha_creacion"], ENT_QUOTES,"UTF-8") ?></td>
+                            <tr>
+                                <td class="fw-semibold text-secondary">#<?= htmlspecialchars($r["id_incidencia"], ENT_QUOTES,"UTF-8") ?></td>
+                                <td class="fw-semibold"><?= htmlspecialchars($r["titulo"], ENT_QUOTES,"UTF-8") ?></td>
+                                <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;"><?= htmlspecialchars($r["descripcion"], ENT_QUOTES,"UTF-8") ?></td>
+                                <td><?= htmlspecialchars($r["fecha_creacion"], ENT_QUOTES,"UTF-8") ?></td>
     <?php
-                if($r["fecha_cierre"] != null) {
+                            if($r["fecha_cierre"] != null) {
     ?>
-                    <td><?= htmlspecialchars($r["fecha_cierre"], ENT_QUOTES,"UTF-8")?></td>
+                                <td><?= htmlspecialchars($r["fecha_cierre"], ENT_QUOTES,"UTF-8")?></td>
     <?php
-                } else {
+                            } else {
     ?>
-                    <td><span class="af-badge af-badge-abierta">Abierta</span></td>
+                                <td><span class="af-badge af-badge-abierta">Abierta</span></td>
     <?php
-                }
+                            }
     ?>
-                    <td><?= htmlspecialchars($r["id_usuario_creador"], ENT_QUOTES,"UTF-8") ?></td>
-                    <td><?= htmlspecialchars($r["id_responsable"], ENT_QUOTES,"UTF-8") ?></td>
-                    <td><?= htmlspecialchars($r["id_categoria"], ENT_QUOTES,"UTF-8") ?></td>
-                    <td><span class="af-badge af-badge-<?= strtolower(str_replace(' ', '-', htmlspecialchars($r["estado"], ENT_QUOTES,"UTF-8"))) ?>"><?= htmlspecialchars($r["estado"], ENT_QUOTES,"UTF-8") ?></span></td>
-                    <td><span class="af-badge af-badge-<?= strtolower(htmlspecialchars($r["prioridad"], ENT_QUOTES,"UTF-8")) ?>"><?= htmlspecialchars($r["prioridad"], ENT_QUOTES,"UTF-8") ?></span></td>
-                    <td>
-                        <div class="d-flex gap-1 flex-nowrap ">
-                            <div class="cont1">
-                                <form action="detalle.php" method="post" class="d-inline">
-                                    <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
-                                    <button type="submit" class="btn btn-af-secondary btn-af-xs">
-                                        <i class="bi bi-eye me-1"></i>Detalle
-                                    </button>
-                                </form>
-    <?php
-                                if($_SESSION["id_usuario"] >=1 && $_SESSION["id_usuario"] <= 3) {
-    ?>
-                                        <form action="editar.php" method="post" class="d-inline">
+                            <td><?= htmlspecialchars($r["id_usuario_creador"], ENT_QUOTES,"UTF-8") ?></td>
+                            <td><?= htmlspecialchars($r["id_responsable"], ENT_QUOTES,"UTF-8") ?></td>
+                            <td><?= htmlspecialchars($r["id_categoria"], ENT_QUOTES,"UTF-8") ?></td>
+                            <td><span class="af-badge af-badge-<?= strtolower(str_replace(' ', '-', htmlspecialchars($r["estado"], ENT_QUOTES,"UTF-8"))) ?>"><?= htmlspecialchars($r["estado"], ENT_QUOTES,"UTF-8") ?></span></td>
+                            <td><span class="af-badge af-badge-<?= strtolower(htmlspecialchars($r["prioridad"], ENT_QUOTES,"UTF-8")) ?>"><?= htmlspecialchars($r["prioridad"], ENT_QUOTES,"UTF-8") ?></span></td>
+                            <td>
+    <?php                   if ($_SESSION["id_usuario"] >= 1 && $_SESSION["id_usuario"] <= 3){ ?>
+                                <div class="d-flex gap-2">
+                                    <div class="d-flex flex-column gap-1 af-action-col">
+                                        <form action="detalle.php" method="post">
                                             <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
-                                            <button type="submit" class="btn btn-af-secondary btn-af-xs">
+                                            <button type="submit" class="btn btn-af-secondary btn-af-xs w-100">
+                                                <i class="bi bi-eye me-1"></i>Detalle
+                                            </button>
+                                        </form>
+                                        <form action="editar.php" method="post">
+                                            <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                                            <button type="submit" class="btn btn-af-secondary btn-af-xs w-100">
                                                 <i class="bi bi-pencil me-1"></i>Editar
                                             </button>
                                         </form>
                                     </div>
-                                    <div class="cont1">
-                                        <form action="estado.php" method="post" class="d-inline">
+                                    <div class="d-flex flex-column gap-1 af-action-col">
+                                        <form action="estado.php" method="post">
                                             <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
-                                            <button type="submit" class="btn btn-af-primary btn-af-xs">
-                                                <i class="bi bi-pencil me-1"></i>Cambiar estado
+                                            <button type="submit" class="btn btn-af-primary btn-af-xs w-100">
+                                                <i class="bi bi-arrow-repeat me-1"></i>Estado
                                             </button>
                                         </form>
-                                        <form action="eliminar.php" method="post" class="d-inline">
+                                        <form action="eliminar.php" method="post">
                                             <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
-                                            <button type="submit" class="btn btn-af-danger btn-af-xs">
+                                            <button type="submit" class="btn btn-af-danger btn-af-xs w-100">
                                                 <i class="bi bi-trash me-1"></i>Eliminar
                                             </button>
                                         </form>
                                     </div>
-    <?php                       }
+                                </div>
+    <?php                   } else {
     ?>
-                        </div>
-                    </td>
-                </tr>
+                                <form action="detalle.php" method="post">
+                                    <input type="hidden" name="id_incidencia" value="<?= $r['id_incidencia']?>">
+                                    <button type="submit" class="btn btn-af-secondary btn-af-xs w-100">
+                                        <i class="bi bi-eye me-1"></i>Detalle
+                                    </button>
+                                </form>
     <?php
-                }
+
+                            }
+          } 
+    ?>
+                        </td>
+                    </tr>
+    <?php
+            
     ?>
             </tbody>
         </table>

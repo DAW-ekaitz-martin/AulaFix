@@ -116,79 +116,221 @@ if ($incidencia) {
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Cambiar estado incidencia</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AulaFix — Cambiar estado</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="css/estilos.css">
+    <style>
+        /* Timeline (same pattern as detalle.php) */
+        .af-timeline {
+            padding: 1.25rem 1.5rem;
+            position: relative;
+        }
+        .af-timeline::before {
+            content: "";
+            position: absolute;
+            left: 2.6rem;
+            top: 1.5rem;
+            bottom: 1.5rem;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--af-secondary), transparent);
+            opacity: .25;
+        }
+        .af-tl-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 0.9rem;
+            position: relative;
+        }
+        .af-tl-item:last-child { margin-bottom: 0; }
+        .af-tl-dot {
+            flex-shrink: 0;
+            width: 34px;
+            height: 34px;
+            background: #eef2f7;
+            border: 2px solid var(--af-secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--af-secondary);
+            font-size: 0.85rem;
+            position: relative;
+            z-index: 1;
+        }
+        .af-tl-content {
+            flex: 1;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 0.65rem 1rem;
+            border: 1px solid #e9eef5;
+            font-size: 0.85rem;
+            color: #4b5563;
+            line-height: 1.5;
+        }
+        .af-tl-date {
+            font-size: 0.72rem;
+            color: var(--af-muted);
+            margin-top: 0.2rem;
+        }
+
+        /* Estado select options — coloured preview dot */
+        .estado-preview {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+            vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Cambiar estado de incidencia</h1>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg af-navbar">
+    <div class="container">
+        <a class="navbar-brand" href="index.php">
+            <span class="brand-icon"><i class="bi bi-tools"></i></span>
+            AulaFix
+        </a>
+        <div class="ms-auto">
+            <a href="index.php" class="nav-link d-inline-flex align-items-center gap-1" style="color:rgba(255,255,255,.82);">
+                <i class="bi bi-arrow-left"></i> Volver al panel
+            </a>
+        </div>
+    </div>
+</nav>
 
-<p><?php echo $mensaje; ?></p>
+<!-- MAIN -->
+<main class="af-main">
+<div class="container">
+<div class="row justify-content-center">
+<div class="col-lg-8 col-xl-7">
 
-<a href="index.php">Volver</a>
+    <!-- Page header -->
+    <div class="af-page-header">
+        <div class="af-page-icon"><i class="bi bi-arrow-repeat"></i></div>
+        <div>
+            <h1>Cambiar estado</h1>
+            <p>Actualiza el estado de la incidencia y registra el cambio en el historial</p>
+        </div>
+    </div>
 
-<?php if ($incidencia) { ?>
+    <!-- Alert -->
+    <?php if ($mensaje === "Estado actualizado correctamente."): ?>
+    <div class="af-alert af-alert-success mb-3">
+        <i class="bi bi-check-circle-fill"></i>
+        <span><?php echo htmlspecialchars($mensaje); ?></span>
+    </div>
+    <?php elseif ($mensaje): ?>
+    <div class="af-alert af-alert-error mb-3">
+        <i class="bi bi-exclamation-circle-fill"></i>
+        <span><?php echo htmlspecialchars($mensaje); ?></span>
+    </div>
+    <?php endif; ?>
 
-<hr>
+    <?php if ($incidencia): ?>
 
-<h2>Incidencia #<?php echo $incidencia['id_incidencia']; ?></h2>
+    <!-- Form card -->
+    <div class="af-card mb-4">
+        <div class="af-card-header secondary">
+            <i class="bi bi-pencil-square"></i>
+            Incidencia #<?php echo $incidencia['id_incidencia']; ?> &mdash; <?php echo htmlspecialchars($incidencia['titulo']); ?>
+        </div>
+        <div class="af-card-body">
 
-<p><strong>Título:</strong>
-<?php echo htmlspecialchars($incidencia['titulo']); ?>
-</p>
+            <!-- Current state -->
+            <div class="d-flex align-items-center gap-2 mb-4 p-3 rounded-3" style="background:#f8fafc;border:1px solid #e9eef5;">
+                <span class="text-secondary" style="font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.8px;">Estado actual:</span>
+                <?php
+                    $estadoSlug = strtolower(str_replace(' ', '-', htmlspecialchars($incidencia['estado'], ENT_QUOTES, "UTF-8")));
+                ?>
+                <span class="af-badge af-badge-<?= $estadoSlug ?>">
+                    <i class="bi bi-circle-fill me-1" style="font-size:.45rem;vertical-align:middle;"></i>
+                    <?php echo htmlspecialchars($incidencia['estado']); ?>
+                </span>
+            </div>
 
-<p><strong>Estado actual:</strong>
-<?php echo $incidencia['estado']; ?>
-</p>
+            <!-- Change form -->
+            <form method="POST">
+                <input type="hidden" name="id_incidencia" value="<?php echo $incidencia['id_incidencia']; ?>">
 
-<form method="POST">
+                <div class="mb-4">
+                    <label class="form-label">
+                        <i class="bi bi-arrow-repeat me-1 text-secondary"></i>Nuevo estado
+                    </label>
+                    <select name="estado" class="form-select">
+                        <option value="Abierta"     <?php if ($incidencia['estado'] === 'Abierta')     echo 'selected'; ?>>Abierta</option>
+                        <option value="En proceso"  <?php if ($incidencia['estado'] === 'En proceso')  echo 'selected'; ?>>En proceso</option>
+                        <option value="Resuelta"    <?php if ($incidencia['estado'] === 'Resuelta')    echo 'selected'; ?>>Resuelta</option>
+                        <option value="Cerrada"     <?php if ($incidencia['estado'] === 'Cerrada')     echo 'selected'; ?>>Cerrada</option>
+                    </select>
+                </div>
 
-    <input
-        type="hidden"
-        name="id_incidencia"
-        value="<?php echo $incidencia['id_incidencia']; ?>">
+                <button type="submit" name="actualizar" class="btn btn-af-primary w-100 py-2">
+                    <i class="bi bi-floppy me-2"></i>Guardar nuevo estado
+                </button>
+            </form>
 
-    <label>Nuevo estado:</label>
+        </div>
+    </div>
 
-    <select name="estado">
-        <option value="Abierta">Abierta</option>
-        <option value="En proceso">En proceso</option>
-        <option value="Resuelta">Resuelta</option>
-        <option value="Cerrada">Cerrada</option>
-    </select>
+    <!-- History card -->
+    <div class="af-card">
+        <div class="af-card-header">
+            <i class="bi bi-clock-history"></i> Historial de cambios
+        </div>
 
-    <br><br>
+        <?php
+            $hayHistorial = false;
+            $filas = [];
+            while ($fila = $historial->fetch_assoc()) {
+                $filas[] = $fila;
+                $hayHistorial = true;
+            }
+        ?>
 
-    <button type="submit" name="actualizar">
-        Actualizar estado
-    </button>
+        <?php if ($hayHistorial): ?>
+        <div class="af-timeline">
+            <?php foreach ($filas as $fila): ?>
+            <div class="af-tl-item">
+                <div class="af-tl-dot">
+                    <i class="bi bi-arrow-repeat"></i>
+                </div>
+                <div class="af-tl-content">
+                    <div><?php echo htmlspecialchars($fila['accion'], ENT_QUOTES, "UTF-8"); ?></div>
+                    <div class="af-tl-date">
+                        <i class="bi bi-person me-1"></i><?php echo htmlspecialchars($fila['nombre'] . " " . $fila['apellidos'], ENT_QUOTES, "UTF-8"); ?>
+                        &nbsp;&bull;&nbsp;
+                        <i class="bi bi-clock me-1"></i><?php echo htmlspecialchars($fila['fecha'], ENT_QUOTES, "UTF-8"); ?>
+                    </div>
+                </div>
+            </div>
+            <?php endforeach; ?>
+        </div>
+        <?php else: ?>
+        <div class="af-history-empty py-4">
+            <i class="bi bi-clock-history" style="font-size:2.25rem;color:#c4cdd9;display:block;margin-bottom:.75rem;"></i>
+            <p class="mb-0 fw-semibold" style="color:#6b7280;">Sin cambios registrados</p>
+            <p class="mt-1 mb-0" style="font-size:.82rem;color:#9ca3af;">Aún no se han realizado modificaciones en esta incidencia.</p>
+        </div>
+        <?php endif; ?>
+    </div>
 
-</form>
+    <?php endif; ?>
 
-<hr>
+</div>
+</div>
+</div>
+</main>
 
-<h2>Historial de cambios</h2>
+<footer class="af-footer">
+    AulaFix &mdash; Gestor de incidencias de biblioteca
+</footer>
 
-<table border="1">
-
-<tr>
-    <th>Acción</th>
-    <th>Usuario</th>
-    <th>Fecha</th>
-</tr>
-
-<?php while ($fila = $historial->fetch_assoc()) { ?>
-
-<tr>
-    <td><?php echo $fila['accion']; ?></td>
-    <td><?php echo $fila['nombre'] . " " . $fila['apellidos']; ?></td>
-    <td><?php echo $fila['fecha']; ?></td>
-</tr>
-
-<?php } ?>
-
-</table>
-
-<?php } ?>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
