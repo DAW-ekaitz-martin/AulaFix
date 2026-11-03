@@ -121,7 +121,7 @@
                         <i class="bi bi-arrow-left me-1"></i>Volver al listado
                     </a>
             <?php
-                    echo $e;
+                    //echo $e;
                 }
             ?>
 
