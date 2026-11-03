@@ -199,7 +199,7 @@ if (isset($_POST["actualizar"])) {
                             name="estado"
                             class="form-control"
                             value="<?php echo $incidencia['estado']; ?>"
-                            required>
+                            disabled>
                     </div>
                     <div class="col-sm-4">
                         <label class="form-label">Prioridad</label>
