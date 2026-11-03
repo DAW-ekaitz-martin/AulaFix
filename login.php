@@ -1,5 +1,6 @@
 <?php
 session_start();
+setcookie("tema","claro",time()+ 604800,"/");
 require "includes/header.php";
 require 'sql/conexion.php';
 $email = htmlspecialchars($_POST["email"] ?? "");

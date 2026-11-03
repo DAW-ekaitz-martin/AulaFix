@@ -42,6 +42,21 @@
                         <i class="bi bi-box-arrow-right me-1"></i>Cerrar sesión
                     </a>
                 </li>
+<?php
+                if(isset($_COOKIE["tema"]) && $_COOKIE["tema"] === "claro") {
+?>
+                    <button type="submit" class="nav-link" id="aOscuro" style="background:rgba(230,57,70,.18);border-radius:6px;">
+                        <i class="bi bi-sun-fill me-1"></i>
+                    </button>
+<?php
+                } else {
+?>
+                    <button type="submit" class="nav-link" id="aClaro" style="background:rgba(230,57,70,.18);border-radius:6px;">
+                        <i class="bi bi-moon-fill me-1"></i>
+                    </button>
+<?php
+                }
+?>
             </ul>
         </div>
     </div>
@@ -275,5 +290,19 @@
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const btnAoscuro = document.getElementById("aOscuro");
+    const btnAclaro = document.getElementById("aClaro");
+    if(btnAoscuro) {
+        btnAoscuro.addEventListener("click", ()=> {
+            window.location.href="cambiarCookie.php?tema=oscuro";
+        });
+    }
+    if(btnAclaro) {
+        btnAclaro.addEventListener("click", ()=> {
+            window.location.href="cambiarCookie.php?tema=claro";
+        });
+    }
+</script>
 </body>
 </html>
