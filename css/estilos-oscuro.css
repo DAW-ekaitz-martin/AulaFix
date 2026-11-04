@@ -755,6 +755,24 @@ h2.login-error-pre {
 
 
 /* ═══════════════════════════════════════
+   DISABLED INPUTS
+═══════════════════════════════════════ */
+/* Inputs deshabilitados */
+.form-control:disabled,
+.form-control[readonly],
+.form-select:disabled {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #cbd5e1;
+  opacity: 1; /* evita que Bootstrap los apague */
+}
+
+.form-control:disabled::placeholder,
+.form-control[readonly]::placeholder {
+  color: #94a3b8;
+  opacity: 1;
+}
+/* ═══════════════════════════════════════
    PLACEHOLDER
 ═══════════════════════════════════════ */
 .form-control::placeholder,
