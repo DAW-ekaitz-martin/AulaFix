@@ -79,7 +79,17 @@ if (isset($_POST["actualizar"])) {
     <title>AulaFix — Editar incidencia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/estilos.css">
+    <?php
+    if($_COOKIE["tema"] === "claro") {
+?>
+        <link rel="stylesheet" href="css/estilos.css">
+<?php
+    } else {
+?>
+        <link rel="stylesheet" href="css/estilos-oscuro.css">
+<?php
+    }
+?>
 </head>
 <body>
 
