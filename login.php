@@ -1,5 +1,6 @@
 <?php
 session_start();
+setcookie("tema","claro",time()+ 604800,"/");
 require "includes/header.php";
 require 'sql/conexion.php';
 $email = htmlspecialchars($_POST["email"] ?? "");
@@ -32,7 +33,17 @@ if(!empty($_SESSION["id_usuario"])){
         <title>AulaFix — Iniciar sesión</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<?php
+    if($_COOKIE["tema"] === "claro") {
+?>
         <link rel="stylesheet" href="css/estilos.css">
+<?php
+    } else {
+?>
+        <link rel="stylesheet" href="css/estilos-oscuro.css">
+<?php
+    }
+?>
     </head>
     <body>
         <div class="af-auth-wrapper">

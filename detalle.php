@@ -43,133 +43,18 @@ $stmt5 -> close();
     <title>AulaFix — Detalle incidencia</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link rel="stylesheet" href="css/estilos.css">
-    <style>
-        /* ── Detail-page extras ── */
-        .af-detail-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.6rem;
-            margin-bottom: 1.75rem;
-        }
-        .af-meta-chip {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            background: var(--af-surface);
-            border: 1px solid var(--af-border);
-            border-radius: 20px;
-            padding: 0.3rem 0.85rem;
-            font-size: 0.8rem;
-            color: var(--af-muted);
-            font-weight: 500;
-            box-shadow: 0 1px 4px rgba(29,53,87,.06);
-        }
-        .af-meta-chip i { color: var(--af-secondary); }
-
-        /* Description block */
-        .af-desc-block {
-            background: #f8fafc;
-            border-left: 4px solid var(--af-secondary);
-            border-radius: 0 8px 8px 0;
-            padding: 1rem 1.25rem;
-            font-size: 0.95rem;
-            line-height: 1.65;
-            color: var(--af-text);
-            margin-bottom: 0;
-        }
-
-        /* Detail tiles */
-        .af-tiles {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1px;
-            background: #f0f3f8;
-            border-top: 1px solid #f0f3f8;
-        }
-        .af-tile {
-            background: var(--af-surface);
-            padding: 1rem 1.25rem;
-        }
-        .af-tile-label {
-            font-size: 0.68rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--af-secondary);
-            margin-bottom: 0.4rem;
-        }
-        .af-tile-value {
-            font-size: 0.92rem;
-            font-weight: 500;
-            color: var(--af-text);
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-        }
-
-        /* Timeline history */
-        .af-timeline {
-            padding: 1.25rem 1.5rem;
-            position: relative;
-        }
-        .af-timeline::before {
-            content: "";
-            position: absolute;
-            left: 2.6rem;
-            top: 1.5rem;
-            bottom: 1.5rem;
-            width: 2px;
-            background: linear-gradient(to bottom, var(--af-secondary), transparent);
-            opacity: .25;
-        }
-        .af-tl-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            margin-bottom: 0.9rem;
-            position: relative;
-        }
-        .af-tl-item:last-child { margin-bottom: 0; }
-        .af-tl-dot {
-            flex-shrink: 0;
-            width: 34px;
-            height: 34px;
-            background: #eef2f7;
-            border: 2px solid var(--af-secondary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--af-secondary);
-            font-size: 0.85rem;
-            position: relative;
-            z-index: 1;
-        }
-        .af-tl-content {
-            flex: 1;
-            background: #f8fafc;
-            border-radius: 8px;
-            padding: 0.65rem 1rem;
-            border: 1px solid #e9eef5;
-            font-size: 0.85rem;
-            color: #4b5563;
-            line-height: 1.5;
-        }
-        .af-tl-date {
-            font-size: 0.72rem;
-            color: var(--af-muted);
-            margin-top: 0.2rem;
-        }
-
-        /* Action strip */
-        .af-action-strip {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.65rem;
-            padding: 1.15rem 1.5rem;
-        }
-    </style>
+    <?php
+    if($_COOKIE["tema"] === "claro") {
+?>
+        <link rel="stylesheet" href="css/estilos.css">
+<?php
+    } else {
+?>
+        <link rel="stylesheet" href="css/estilos-oscuro.css">
+<?php
+    }
+?>
+    
 </head>
 <body>
 
