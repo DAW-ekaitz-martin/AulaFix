@@ -27,7 +27,6 @@ if (isset($_POST["actualizar"])) {
     $titulo = $_POST["titulo"];
     $descripcion = $_POST["descripcion"];
     $id_categoria = $_POST["id_categoria"];
-    $estado = $_POST["estado"];
     $prioridad = $_POST["prioridad"];
 
     $stmt = $cn->prepare("
@@ -35,17 +34,15 @@ if (isset($_POST["actualizar"])) {
         SET titulo = ?,
             descripcion = ?,
             id_categoria = ?,
-            estado = ?,
             prioridad = ?
         WHERE id_incidencia = ?
     ");
 
     $stmt->bind_param(
-        "ssissi",
+        "ssisi",
         $titulo,
         $descripcion,
         $id_categoria,
-        $estado,
         $prioridad,
         $id
     );
@@ -125,20 +122,6 @@ if (isset($_POST["actualizar"])) {
 
     <!-- SEARCH CARD -->
     <div class="af-card">
-        <!--<div class="af-card-header">
-            <i class="bi bi-search"></i> Buscar incidencia
-        </div>
-        <div class="af-card-body">
-            <form method="POST" class="d-flex gap-2 align-items-end">
-                <div class="flex-grow-1">
-                    <label class="form-label">ID de la incidencia</label>
-                    <input type="number" name="id_incidencia" class="form-control" placeholder="Introduce el ID…" required>
-                </div>
-                <button type="submit" name="buscar" class="btn btn-af-secondary" style="height:38px;">
-                    <i class="bi bi-search me-1"></i>Buscar
-                </button>
-            </form>-->
-
             <?php if ($mensaje && $mensaje !== "ok"): ?>
             <div class="af-alert af-alert-error mt-3">
                 <i class="bi bi-exclamation-circle-fill"></i>

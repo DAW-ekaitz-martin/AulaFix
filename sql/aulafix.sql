@@ -37,22 +37,6 @@ CREATE TABLE incidencias (
     FOREIGN KEY (id_categoria)
         REFERENCES categorias(id_categoria)
 );
-CREATE TABLE comentarios (
-    id_comentario INT AUTO_INCREMENT PRIMARY KEY,
-    contenido TEXT NOT NULL,
-    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-
-    id_incidencia INT NOT NULL,
-    id_usuario INT NOT NULL,
-
-    FOREIGN KEY (id_incidencia)
-        REFERENCES incidencias(id_incidencia)
-        ON DELETE CASCADE,
-
-
-    FOREIGN KEY (id_usuario)
-        REFERENCES usuarios(id_usuario)
-);
 CREATE TABLE historial_incidencias (
     id_historial INT AUTO_INCREMENT PRIMARY KEY,
     id_incidencia INT NOT NULL,
